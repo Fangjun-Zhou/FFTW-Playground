@@ -19,7 +19,7 @@ int main(int argc, char const *argv[]) {
                 sin(i * 2 * M_PI * (2 / (double)nfft)) +
                 sin(i * 2 * M_PI * (5 / (double)nfft)));
     in[i][1] = 0;
-    std::cout << "Time " << (double)i / (double)nfft << ", value: " << in[i][0]
+    std::cout << "Time " << (double)i / (double)nfft << "\t: " << in[i][0]
               << std::endl;
   }
 
@@ -30,7 +30,19 @@ int main(int argc, char const *argv[]) {
     // std::cout << "Freq " << i << ": " << out[i][0] << " + " << out[i][1] <<
     // "i" << std::endl;
     double magnitude = sqrt(pow(out[i][0], 2) + pow(out[i][1], 2));
-    std::cout << "Freq " << i << ": " << magnitude << std::endl;
+    std::cout << "Freq " << i << "\t: " << magnitude << std::endl;
+  }
+
+  fftw_destroy_plan(p);
+
+  p = fftw_plan_dft_1d(nfft, out, in, FFTW_BACKWARD, FFTW_ESTIMATE);
+
+  fftw_execute(p);
+
+  // Print the inverse FFTW result.
+  for (int i = 0; i < nfft; i++) {
+    std::cout << "Time " << (double)i / (double)nfft
+              << "\t: " << in[i][0] / (double)nfft << std::endl;
   }
 
   fftw_destroy_plan(p);
