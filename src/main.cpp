@@ -1,9 +1,14 @@
 #include <iostream>
+#include <iomanip>
 
 #include <fftw3.h>
 #include <math.h>
 
 int main(int argc, char const *argv[]) {
+  // Set the standard output precision.
+  std::cout << std::fixed;
+  std::cout << std::setprecision(4);
+
   fftw_complex *in, *out;
   fftw_plan p;
 
