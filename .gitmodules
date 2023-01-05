@@ -1,0 +1,3 @@
+[submodule "external/fftw"]
+	path = external/fftw
+	url = git@github.com:FFTW/fftw3.git
