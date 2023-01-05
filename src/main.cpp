@@ -15,16 +15,22 @@ int main(int argc, char const *argv[]) {
 
   // Create a signal for input.
   for (int i = 0; i < nfft; i++) {
-    in[i][0] = (sin(2 * M_PI * (1 / nfft)) + sin(2 * M_PI * (2 / nfft)) +
-                sin(2 * M_PI * (5 / nfft)));
+    in[i][0] = (sin(i * 2 * M_PI * (1 / (double)nfft)) +
+                sin(i * 2 * M_PI * (2 / (double)nfft)) +
+                sin(i * 2 * M_PI * (5 / (double)nfft)));
     in[i][1] = 0;
+    std::cout << "Time " << (double)i / (double)nfft << ", value: " << in[i][0]
+              << std::endl;
   }
 
   fftw_execute(p); /* repeat as needed */
 
   // Print the output result.
   for (int i = 0; i < nfft / 2; i++) {
-    std::cout << "Freq " << i << ": " << out[i][0] << " + " << out[i][1] << "i";
+    // std::cout << "Freq " << i << ": " << out[i][0] << " + " << out[i][1] <<
+    // "i" << std::endl;
+    double magnitude = sqrt(pow(out[i][0], 2) + pow(out[i][1], 2));
+    std::cout << "Freq " << i << ": " << magnitude << std::endl;
   }
 
   fftw_destroy_plan(p);

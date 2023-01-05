@@ -7,6 +7,7 @@ set(LIBS "")
 
 # FFTW
 add_subdirectory(external/fftw)
+message(STATUS fftw3)
 list(APPEND INCLUDES external/fftw/api)
 list(APPEND LIBS fftw3)
 
