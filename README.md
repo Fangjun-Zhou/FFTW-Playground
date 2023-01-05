@@ -26,55 +26,102 @@ Here, I assume the sample time is 1 second. Thus, a 1Hz sin wave should be gener
 
 Notice that all the imaginary part of the input data should be initialized to 0.
 
+To perform a inverse fft:
+
+```c++
+for (int i = 0; i < nfft; i++) {
+  std::cout << "Time " << (double)i / (double)nfft
+            << "\t: " << in[i][0] / (double)nfft << std::endl;
+}
+```
+
+According to the [fftw documentation](https://www.fftw.org/fftw3_doc/The-1d-Discrete-Fourier-Transform-_0028DFT_0029.html)
+
+> FFTW computes an unnormalized transform, in that there is no coefficient in front of the summation in the DFT. In other words, applying the forward and then the backward transform will multiply the input by n.
+
+Thus, we devided the result data by `nfft` to get the original signal.
+
 Building and running the source code will output:
 
 ```
-Time 0, value: 0
-Time 0.03125, value: 1.40924
-Time 0.0625, value: 2.01367
-Time 0.09375, value: 1.67454
-Time 0.125, value: 1
-Time 0.15625, value: 0.774564
-Time 0.1875, value: 1.2483
-Time 0.21875, value: 1.91904
-Time 0.25, value: 2
-Time 0.28125, value: 1.15367
-Time 0.3125, value: -0.165911
-Time 0.34375, value: -1.0732
-Time 0.375, value: -1
-Time 0.40625, value: -0.173219
-Time 0.4375, value: 0.599456
-Time 0.46875, value: 0.643877
-Time 0.5, value: 4.89859e-16
-Time 0.53125, value: -0.643877
-Time 0.5625, value: -0.599456
-Time 0.59375, value: 0.173219
-Time 0.625, value: 1
-Time 0.65625, value: 1.0732
-Time 0.6875, value: 0.165911
-Time 0.71875, value: -1.15367
-Time 0.75, value: -2
-Time 0.78125, value: -1.91904
-Time 0.8125, value: -1.2483
-Time 0.84375, value: -0.774564
-Time 0.875, value: -1
-Time 0.90625, value: -1.67454
-Time 0.9375, value: -2.01367
-Time 0.96875, value: -1.40924
-Freq 0: 6.26302e-15
-Freq 1: 16
-Freq 2: 16
-Freq 3: 8.02863e-15
-Freq 4: 1.90297e-15
-Freq 5: 16
-Freq 6: 7.27556e-15
-Freq 7: 5.16805e-15
-Freq 8: 2.50386e-15
-Freq 9: 3.77647e-15
-Freq 10: 4.72309e-15
-Freq 11: 5.17022e-15
-Freq 12: 2.39443e-15
-Freq 13: 5.99997e-15
-Freq 14: 2.39513e-15
-Freq 15: 7.61716e-15
+Time 0.0000     : 0.0000
+Time 0.0312     : 1.4092
+Time 0.0625     : 2.0137
+Time 0.0938     : 1.6745
+Time 0.1250     : 1.0000
+Time 0.1562     : 0.7746
+Time 0.1875     : 1.2483
+Time 0.2188     : 1.9190
+Time 0.2500     : 2.0000
+Time 0.2812     : 1.1537
+Time 0.3125     : -0.1659
+Time 0.3438     : -1.0732
+Time 0.3750     : -1.0000
+Time 0.4062     : -0.1732
+Time 0.4375     : 0.5995
+Time 0.4688     : 0.6439
+Time 0.5000     : 0.0000
+Time 0.5312     : -0.6439
+Time 0.5625     : -0.5995
+Time 0.5938     : 0.1732
+Time 0.6250     : 1.0000
+Time 0.6562     : 1.0732
+Time 0.6875     : 0.1659
+Time 0.7188     : -1.1537
+Time 0.7500     : -2.0000
+Time 0.7812     : -1.9190
+Time 0.8125     : -1.2483
+Time 0.8438     : -0.7746
+Time 0.8750     : -1.0000
+Time 0.9062     : -1.6745
+Time 0.9375     : -2.0137
+Time 0.9688     : -1.4092
+Freq 0  : 0.0000
+Freq 1  : 16.0000
+Freq 2  : 16.0000
+Freq 3  : 0.0000
+Freq 4  : 0.0000
+Freq 5  : 16.0000
+Freq 6  : 0.0000
+Freq 7  : 0.0000
+Freq 8  : 0.0000
+Freq 9  : 0.0000
+Freq 10 : 0.0000
+Freq 11 : 0.0000
+Freq 12 : 0.0000
+Freq 13 : 0.0000
+Freq 14 : 0.0000
+Freq 15 : 0.0000
+Time 0.0000     : 0.0000
+Time 0.0312     : 1.4092
+Time 0.0625     : 2.0137
+Time 0.0938     : 1.6745
+Time 0.1250     : 1.0000
+Time 0.1562     : 0.7746
+Time 0.1875     : 1.2483
+Time 0.2188     : 1.9190
+Time 0.2500     : 2.0000
+Time 0.2812     : 1.1537
+Time 0.3125     : -0.1659
+Time 0.3438     : -1.0732
+Time 0.3750     : -1.0000
+Time 0.4062     : -0.1732
+Time 0.4375     : 0.5995
+Time 0.4688     : 0.6439
+Time 0.5000     : 0.0000
+Time 0.5312     : -0.6439
+Time 0.5625     : -0.5995
+Time 0.5938     : 0.1732
+Time 0.6250     : 1.0000
+Time 0.6562     : 1.0732
+Time 0.6875     : 0.1659
+Time 0.7188     : -1.1537
+Time 0.7500     : -2.0000
+Time 0.7812     : -1.9190
+Time 0.8125     : -1.2483
+Time 0.8438     : -0.7746
+Time 0.8750     : -1.0000
+Time 0.9062     : -1.6745
+Time 0.9375     : -2.0137
+Time 0.9688     : -1.4092
 ```
